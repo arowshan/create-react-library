@@ -1,8 +1,5 @@
-import Example from './components/Example';
-import SecondExample from './components/SecondExample';
+import SearchMaster from './components/SearchMaster';
 
-export default Example;
-export {
-  SecondExample
-};
+export default SearchMaster;
+
 

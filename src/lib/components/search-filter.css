@@ -1,0 +1,10 @@
+.filter-container {
+    margin: 10px;
+}
+ul {
+    list-style-type: none;
+}
+
+.filter--item {
+    white-space: nowrap; 
+}
