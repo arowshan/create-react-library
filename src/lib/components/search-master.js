@@ -13,7 +13,6 @@ import SearchResults from './search-results';
 class SearchMaster extends Component {
 
   apiFetchIntervalId;
-  // isNewFilterApplied = true;
 
   constructor(props) {
     super(props);
@@ -42,28 +41,20 @@ class SearchMaster extends Component {
     this.updateSortBy = this.updateSortBy.bind(this);    
   }
 
-  feedFilters(newFilter) {
-    //some ajax
-    this.setState({
-      searchFilters: this.state.searchFilters.concat([newFilter])
-    })
-  }
-
   updateSearch() {
     const url = this.props.url;
-    const headers = { 'Authorization-Key': 'oa5FLRYDO+LFrLejBF3hqr0/AYlgQ1JZoA/GXch/47s='};
-    const params = {
-      'Keyword': this.state.searchQuery,
-      'ResultsPerPage':50
-    };
-    if(this.state.isNewFilterApplied) {
-      for(let filter of this.state.appliedFilters) {
-        params[filter] = true;
-      }
-      this.setState({
-        isNewFilterApplied : false
-      });
+    const headers = this.props.headers;
+    let params = this.props.params;
+    Object.assign(params, {[this.props.queryKeyword]: this.state.searchQuery});
+
+    for(let item of this.state.appliedFilters) {
+     params[Object.keys(item)[0]] = item[Object.keys(item)[0]];
     }
+
+    this.setState({
+      isNewFilterApplied : false
+    });
+
     this.fetchApi(url, headers, params);
     clearInterval(this.apiFetchIntervalId);
     this.apiFetchIntervalId = setInterval(
@@ -108,22 +99,13 @@ class SearchMaster extends Component {
     });
   }
 
-  updateAppliedFilters(event) {
+  updateAppliedFilters(appliedFilters) {
     this.setState({
       isNewFilterApplied: true
     });
-    if(event.target.checked) {
-      this.setState({ 
-        appliedFilters: [...this.state.appliedFilters, event.target.value]
-      });
-    }
-    else {
-      this.setState({ 
-        appliedFilters: this.state.appliedFilters.filter(
-          (_, i) => i !== this.state.appliedFilters.indexOf(event.target.value)
-        )
-      })
-    }
+    this.setState({ 
+      appliedFilters: appliedFilters
+    });
   }
 
   updateResultsPerPage(event, index, value) {
@@ -236,7 +218,6 @@ class SearchMaster extends Component {
 
 
   render() {
-
     return (
       <MuiThemeProvider>
       <div className="search-container">
@@ -246,11 +227,11 @@ class SearchMaster extends Component {
           onSearch={this.updateSearch}
         />
         <div className="filters-and-results">
-          <div>
+          <div className="filters-container">
             {this.renderFilterOptions()}
             {this.renderFilterButtons()}
           </div>
-          <div>
+          <div className="results-container">
             <SearchResults
               searchResults={this.state.sortedResults.length>0? this.state.sortedResults: this.state.searchResults}
               resultsPage={this.state.resultsPage}
@@ -272,7 +253,11 @@ SearchMaster.defaultProps = {
   resultsPage: 1,
   resultsPerPage: 5,
   startingResult: 0,
-  sortedResults: []
+  sortedResults: [],
+  headers: {},
+  params: {},
+  searchFilters: [],
+  sortCategories: {},
 }
 
 

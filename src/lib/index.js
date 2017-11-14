@@ -1,4 +1,4 @@
-import SearchMaster from './components/SearchMaster';
+import SearchMaster from './components/search-master';
 
 export default SearchMaster;
 

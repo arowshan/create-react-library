@@ -1,6 +1,6 @@
 {
-  "name": "react-search-filter",
-  "version": "0.0.1",
+  "name": "react-search-and-filter",
+  "version": "1.0.1",
   "description": "React NPM library to send search queries and filters against an api",
   "main": "build/index.js",
   "scripts": {
@@ -10,13 +10,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/udiliaInc/create-react-library.git"
+    "url": "git+https://github.com/arowshan/create-react-library.git"
   },
-  "author": "Dimitri Mikadze <dimitri@udilia.com>",
+  "author": "Arash Rowshan <arash.rowshan@gmail.com>",
   "bugs": {
-    "url": "https://github.com/udiliaInc/create-react-library/issues"
+    "url": "https://github.com/arowshan/create-react-library/issues"
   },
-  "homepage": "https://github.com/udiliaInc/create-react-library#readme",
+  "homepage": "https://github.com/arowshan/create-react-library",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.17.0",
